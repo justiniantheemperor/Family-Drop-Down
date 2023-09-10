@@ -34,6 +34,8 @@ const fetchPeopleData = async (familyTreeId) => {
 
 const DropDown = () => {
     const [people, setPeople] = useState([]);
+    const [selectedPerson, setSelectedPerson] = useState(null); // Track the selected person
+
     const familyTreeId = 1;
 
     useEffect(() => {
@@ -49,7 +51,24 @@ const DropDown = () => {
                 options={people}
                 getOptionLabel={(person) => formatDisplay(person)}
                 renderInput={(params) => <TextField {...params} label="Select a person" />}
+                onChange={(event, newValue) => {
+                    setSelectedPerson(newValue); // Update selected person
+                }}
             />
+            {selectedPerson && ( // Render selected person's information if available
+                <div>
+                    <h2>Selected Person:</h2>
+                    <p>Name: {selectedPerson.givenName} {selectedPerson.surname}</p>
+                    <p>Gender:  {selectedPerson.gender}</p>
+                    <p>Birth Date:  {selectedPerson.birthDate}</p>
+                    <p>Birth Location:  {selectedPerson.birthLocation}</p>
+                    <p>Death Date:  {selectedPerson.deathDate}</p>
+                    <p>Death Location:  {selectedPerson.deathLocation}</p>
+
+
+                    {/* Add more fields as needed */}
+                </div>
+            )}
         </main>
     );
 };
