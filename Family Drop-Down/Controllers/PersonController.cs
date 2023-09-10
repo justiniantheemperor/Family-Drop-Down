@@ -36,7 +36,7 @@ namespace Family_Drop_Down.Controllers
            new Person
             {
                 Id = "e385e979-38dd-51b6-86e7-db1f6457adcf",
-                FamilyTreeId = 2,
+                FamilyTreeId = 1,
                 GivenName = "Emily R",
                 Surname = "Atkinson",
                 Gender = Gender.Other,
@@ -45,12 +45,24 @@ namespace Family_Drop_Down.Controllers
                 DeathDate = null,
                 DeathLocation = null
             },
-                      new Person
+            new Person
             {
                 Id = "f367f979-23ed-32a6-86e7-db1f1223adcf",
-                FamilyTreeId = 2,
+                FamilyTreeId = 1,
                 GivenName = "Jason R",
                 Surname = "Lucas",
+                Gender = Gender.Male,
+                BirthDate = null,
+                BirthLocation = null,
+                DeathDate = null,
+                DeathLocation = null
+            },
+            new Person
+            {
+                Id = "c666f933-21aa-32a6-33b3-db1f6457adcf",
+                FamilyTreeId = 2,
+                GivenName = "Esteban",
+                Surname = "Gomez",
                 Gender = Gender.Male,
                 BirthDate = null,
                 BirthLocation = null,
