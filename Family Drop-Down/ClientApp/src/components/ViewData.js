@@ -3,23 +3,34 @@
 const ViewData = () => {
 
     const [people, setPeople] = useState([]);
-    const familyTreeId = 1;
+    const [familyTreeId, setFamilyTreeId] = useState(1);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`person/${familyTreeId}`);
+            const data = await response.json();
+            setPeople(data);
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+        }
+    };
 
     useEffect(() => {
-        fetch(`person/${familyTreeId}`)
-            .then((results) => {
-                return results.json();
-            })
-            .then(data => {
-                setPeople(data);
-            })
-            .catch(error => {
-                console.error("Error fetching data: ", error);
-            });
-    }, [])
+        fetchData(); // Load data on component mount
+    }, [familyTreeId]);
+
+
+    const handleFamilyTreeId = (newId) => {
+        // Change familyTreeId to 2 when the button is clicked
+        setFamilyTreeId(newId);
+        fetchData();
+    };
 
 
     return (
+        <div>
+            <button onClick={() => handleFamilyTreeId(1)}>User 1</button>
+            <button onClick={() => handleFamilyTreeId(2)}>User 2</button>
         <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                 <tr>
@@ -49,7 +60,9 @@ const ViewData = () => {
                     </tr>
                 )}
             </tbody>
-        </table>
+            </table>
+        </div>
+
     )
 }
 
