@@ -2,6 +2,15 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
+// Helper function to format date
+const formatDate = (dateString) => {
+    if (!dateString) return 'Unknown';
+
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+};
+
 const formatDisplay = (person) => {
     const fullName = `${person.givenName} ${person.surname}`;
     let dateRange = "";
@@ -59,14 +68,11 @@ const DropDown = () => {
                 <div>
                     <h2>Selected Person:</h2>
                     <p>Name: {selectedPerson.givenName} {selectedPerson.surname}</p>
-                    <p>Gender:  {selectedPerson.gender}</p>
-                    <p>Birth Date:  {selectedPerson.birthDate}</p>
-                    <p>Birth Location:  {selectedPerson.birthLocation}</p>
-                    <p>Death Date:  {selectedPerson.deathDate}</p>
-                    <p>Death Location:  {selectedPerson.deathLocation}</p>
-
-
-                    {/* Add more fields as needed */}
+                    <p>Gender: {selectedPerson.gender || "Unknown"}</p>
+                    <p>Birth Date: {formatDate(selectedPerson.birthDate)}</p>
+                    <p>Birth Location: {selectedPerson.birthLocation || 'Unknown'}</p>
+                    <p>Death Date: {formatDate(selectedPerson.deathDate)}</p>
+                    <p>Death Location: {selectedPerson.deathLocation || "Unknown"}</p>
                 </div>
             )}
         </main>
