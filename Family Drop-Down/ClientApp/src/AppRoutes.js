@@ -1,4 +1,4 @@
-import { Counter } from "./components/Counter";
+import DropDown from "./components/DropDown";
 import { FetchData } from "./components/FetchData";
 import ViewData from "./components/ViewData";
 import { Home } from "./components/Home";
@@ -9,16 +9,16 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/counter',
-    element: <Counter />
+    path: '/drop-down',
+    element: <DropDown />
   },
-  {
-    path: '/fetch-data',
-    element: <FetchData />
-    },
     {
         path: '/view-data',
         element: <ViewData />
+    },
+  {
+    path: '/fetch-data',
+    element: <FetchData />
     }
 ];
 
