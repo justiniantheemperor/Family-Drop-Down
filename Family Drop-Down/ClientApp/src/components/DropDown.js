@@ -12,19 +12,17 @@ const formatDate = (dateString) => {
 };
 
 const formatDisplay = (person) => {
-    const fullName = `${person.givenName} ${person.surname}`;
-    let dateRange = "";
+    const fullName = `${person.givenName || 'Unknown'} ${person.surname || 'Unknown'}`;
+    let dateRange = '';
 
     if (person.birthDate && person.deathDate) {
-        dateRange = `(${person.birthDate.split('-')[0]}-${person.deathDate.split('-')[0]})`;
+        dateRange = `(${formatDate(person.birthDate)} - ${formatDate(person.deathDate)})`;
     } else if (person.deathDate) {
-        dateRange = `(-${person.deathDate.split('-')[0]})`;
+        dateRange = `(-${formatDate(person.deathDate)})`;
     } else if (person.birthDate) {
-        const birthYear = person.birthDate.split('-')[0];
-        const currentYear = new Date().getFullYear();
-        dateRange = currentYear - birthYear < 120 ? "(Living)" : `(${birthYear}-Living)`;
+        dateRange = `(${formatDate(person.birthDate)} - Living)`;
     } else {
-        dateRange = "(Living)";
+        dateRange = '(Living)';
     }
 
     return `${fullName} ${dateRange}`;
@@ -36,7 +34,7 @@ const fetchPeopleData = async (familyTreeId) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error('Error fetching data: ', error);
         return [];
     }
 };
@@ -44,8 +42,7 @@ const fetchPeopleData = async (familyTreeId) => {
 const DropDown = () => {
     const [people, setPeople] = useState([]);
     const [selectedPerson, setSelectedPerson] = useState(null); // Track the selected person
-
-    const familyTreeId = 1;
+    const [familyTreeId, setFamilyTreeId] = useState(1); // Initial familyTreeId
 
     useEffect(() => {
         fetchPeopleData(familyTreeId).then((data) => {
@@ -53,8 +50,17 @@ const DropDown = () => {
         });
     }, [familyTreeId]);
 
+    const handleFamilyTreeIdChange = (newId) => {
+        // Change familyTreeId and trigger data fetching when the button is clicked
+        setFamilyTreeId(newId);
+    };
+
     return (
         <main>
+            <div>
+                <button onClick={() => handleFamilyTreeIdChange(1)}>User 1</button>
+                <button onClick={() => handleFamilyTreeIdChange(2)}>User 2</button>
+            </div>
             <Autocomplete
                 id="person-select"
                 options={people}
@@ -67,12 +73,12 @@ const DropDown = () => {
             {selectedPerson && ( // Render selected person's information if available
                 <div>
                     <h2>Selected Person:</h2>
-                    <p>Name: {selectedPerson.givenName} {selectedPerson.surname}</p>
-                    <p>Gender: {selectedPerson.gender || "Unknown"}</p>
+                    <p>Name: {selectedPerson.givenName || 'Unknown'} {selectedPerson.surname || 'Unknown'}</p>
+                    <p>Gender: {selectedPerson.gender || 'Unknown'}</p>
                     <p>Birth Date: {formatDate(selectedPerson.birthDate)}</p>
                     <p>Birth Location: {selectedPerson.birthLocation || 'Unknown'}</p>
                     <p>Death Date: {formatDate(selectedPerson.deathDate)}</p>
-                    <p>Death Location: {selectedPerson.deathLocation || "Unknown"}</p>
+                    <p>Death Location: {selectedPerson.deathLocation || 'Unknown'}</p>
                 </div>
             )}
         </main>
