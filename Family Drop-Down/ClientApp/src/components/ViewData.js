@@ -110,7 +110,7 @@ const ViewData = () => {
                         <TableRow key={person.id}>
                             <TableCell>{person.givenName}</TableCell>
                             <TableCell>{person.surname}</TableCell>
-                            <TableCell>{genderMap[person.gender]}</TableCell>
+                            <TableCell>{genderMap[person.gender] || 'Unknown'}</TableCell>
                             <TableCell>{person.birthDate}</TableCell>
                             <TableCell>{person.birthLocation || 'Unknown'}</TableCell>
                             <TableCell>{person.deathDate}</TableCell>

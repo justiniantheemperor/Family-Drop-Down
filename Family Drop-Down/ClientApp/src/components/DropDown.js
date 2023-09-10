@@ -3,6 +3,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+// Map Gender numerical values to their corresponding strings
+const genderMap = {
+    0: 'Male',
+    1: 'Female',
+    2: 'Other',
+    3: 'Unknown',
+};
+
 // Helper function to format date
 const formatDate = (dateString) => {
     if (!dateString) return 'Unknown';
@@ -83,9 +91,8 @@ const DropDown = () => {
             />
             {selectedPerson && ( // Render selected person's information if available
                 <div>
-                    <h2>Selected Person:</h2>
-                    <p>Name: {selectedPerson.givenName || 'Unknown'} {selectedPerson.surname || 'Unknown'}</p>
-                    <p>Gender: {selectedPerson.gender || 'Unknown'}</p>
+                    <h2>{selectedPerson.givenName} {selectedPerson.surname}</h2>
+                    <p>Gender: {genderMap[selectedPerson.gender] || 'Unknown'} </p>
                     <p>Birth Date: {formatDate(selectedPerson.birthDate)}</p>
                     <p>Birth Location: {selectedPerson.birthLocation || 'Unknown'}</p>
                     <p>Death Date: {formatDate(selectedPerson.deathDate)}</p>

@@ -6,7 +6,7 @@
         public int FamilyTreeId { get; set; }
         public string GivenName { get; set; }
         public string Surname { get; set; }
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? BirthLocation { get; set; }
         public DateTime? DeathDate { get; set; }
@@ -17,7 +17,6 @@
     {
         Male,
         Female,
-        Other,
-        Unknown
+        Other
     }
 }

@@ -51,7 +51,7 @@ namespace Family_Drop_Down.Controllers
                 FamilyTreeId = 1,
                 GivenName = "Jason R",
                 Surname = "Lucas",
-                Gender = Gender.Male,
+                Gender = null,
                 BirthDate = null,
                 BirthLocation = null,
                 DeathDate = null,
