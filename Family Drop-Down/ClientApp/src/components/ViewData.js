@@ -1,11 +1,25 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
 
+// Map Gender numerical values to their corresponding strings
+const genderMap = {
+    0: 'Male',
+    1: 'Female',
+    2: 'Other',
+    3: 'Unknown',
+};
 
 const ViewData = () => {
-
     const [people, setPeople] = useState([]);
     const [familyTreeId, setFamilyTreeId] = useState(1);
+    const [orderBy, setOrderBy] = useState('givenName');
+    const [order, setOrder] = useState('asc');
 
     const fetchData = async () => {
         try {
@@ -21,63 +35,92 @@ const ViewData = () => {
         fetchData(); // Load data on component mount
     }, [familyTreeId]);
 
+    const sortData = (field) => {
+        const isAscending = orderBy === field && order === 'asc';
+        const newOrder = isAscending ? 'desc' : 'asc';
+        setOrderBy(field);
+        setOrder(newOrder);
 
-    const handleFamilyTreeId = (newId) => {
-        // Change familyTreeId to 2 when the button is clicked
-        setFamilyTreeId(newId);
-        fetchData();
+        // Sort the data based on the selected field and order
+        const sortedData = [...people].sort((a, b) => {
+            if (field === 'gender') {
+                // Sort by numerical gender value
+                return isAscending ? a[field] - b[field] : b[field] - a[field];
+            } else {
+                // Sort by other fields using localeCompare
+                return isAscending ? a[field].localeCompare(b[field]) : b[field].localeCompare(a[field]);
+            }
+        });
+
+        setPeople(sortedData);
     };
-
 
     return (
         <div>
-            <div>
-                <Button
-                    variant={familyTreeId === 1 ? 'contained' : 'outlined'}
-                    onClick={() => handleFamilyTreeId(1)}
-                >
-                    User 1
-                </Button>
-                <Button
-                    variant={familyTreeId === 2 ? 'contained' : 'outlined'}
-                    onClick={() => handleFamilyTreeId(2)}
-                >
-                    User 2
-                </Button>
-            </div>
-        <table className='table table-striped' aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Gender</th>
-                    <th>Birth Date</th>
-                    <th>Birth Location</th>
-                    <th>Death Date</th>
-                    <th>Death Location</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                {people.map(person =>
-                    <tr key={person.id}>
-                        <td>{person.id}</td>
-                        <td>{person.givenName}</td>
-                        <td>{person.surname}</td>
-                        <td>{person.gender}</td>
-                        <td>{person.birthDate}</td>
-                        <td>{person.birthLocation}</td>
-                        <td>{person.deathDate}</td>
-                        <td>{person.deathLocation}</td>
-
-                    </tr>
-                )}
-            </tbody>
-            </table>
+            <Button
+                variant={familyTreeId === 1 ? 'contained' : 'outlined'}
+                onClick={() => setFamilyTreeId(1)}
+            >
+                User 1
+            </Button>
+            <Button
+                variant={familyTreeId === 2 ? 'contained' : 'outlined'}
+                onClick={() => setFamilyTreeId(2)}
+            >
+                User 2
+            </Button>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
+                            <TableSortLabel
+                                active={orderBy === 'givenName'}
+                                direction={orderBy === 'givenName' ? order : 'asc'}
+                                onClick={() => sortData('givenName')}
+                            >
+                                First Name
+                            </TableSortLabel>
+                        </TableCell>
+                        <TableCell>
+                            <TableSortLabel
+                                active={orderBy === 'surname'}
+                                direction={orderBy === 'surname' ? order : 'asc'}
+                                onClick={() => sortData('surname')}
+                            >
+                                Last Name
+                            </TableSortLabel>
+                        </TableCell>
+                        <TableCell>
+                            <TableSortLabel
+                                active={orderBy === 'gender'}
+                                direction={orderBy === 'gender' ? order : 'asc'}
+                                onClick={() => sortData('gender')}
+                            >
+                                Gender
+                            </TableSortLabel>
+                        </TableCell>
+                        <TableCell>Birth Date</TableCell>
+                        <TableCell>Birth Location</TableCell>
+                        <TableCell>Death Date</TableCell>
+                        <TableCell>Death Location</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {people.map((person) => (
+                        <TableRow key={person.id}>
+                            <TableCell>{person.givenName}</TableCell>
+                            <TableCell>{person.surname}</TableCell>
+                            <TableCell>{genderMap[person.gender]}</TableCell>
+                            <TableCell>{person.birthDate}</TableCell>
+                            <TableCell>{person.birthLocation || 'Unknown'}</TableCell>
+                            <TableCell>{person.deathDate}</TableCell>
+                            <TableCell>{person.deathLocation || 'Unknown'}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
-
-    )
-}
+    );
+};
 
 export default ViewData;
