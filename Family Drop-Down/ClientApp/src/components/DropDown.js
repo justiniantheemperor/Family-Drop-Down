@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 // Helper function to format date
 const formatDate = (dateString) => {
@@ -42,7 +43,7 @@ const fetchPeopleData = async (familyTreeId) => {
 const DropDown = () => {
     const [people, setPeople] = useState([]);
     const [selectedPerson, setSelectedPerson] = useState(null); // Track the selected person
-    const [familyTreeId, setFamilyTreeId] = useState(1); // Initial familyTreeId
+    const [familyTreeId, setFamilyTreeId] = useState(1); 
 
     useEffect(() => {
         fetchPeopleData(familyTreeId).then((data) => {
@@ -58,8 +59,18 @@ const DropDown = () => {
     return (
         <main>
             <div>
-                <button onClick={() => handleFamilyTreeIdChange(1)}>User 1</button>
-                <button onClick={() => handleFamilyTreeIdChange(2)}>User 2</button>
+                <Button
+                    variant={familyTreeId === 1 ? 'contained' : 'outlined'}
+                    onClick={() => handleFamilyTreeIdChange(1)}
+                >
+                    User 1
+                </Button>
+                <Button
+                    variant={familyTreeId === 2 ? 'contained' : 'outlined'}
+                    onClick={() => handleFamilyTreeIdChange(2)}
+                >
+                    User 2
+                </Button>
             </div>
             <Autocomplete
                 id="person-select"

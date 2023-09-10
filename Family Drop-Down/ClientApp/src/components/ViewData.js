@@ -1,4 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
+
 
 const ViewData = () => {
 
@@ -29,8 +31,20 @@ const ViewData = () => {
 
     return (
         <div>
-            <button onClick={() => handleFamilyTreeId(1)}>User 1</button>
-            <button onClick={() => handleFamilyTreeId(2)}>User 2</button>
+            <div>
+                <Button
+                    variant={familyTreeId === 1 ? 'contained' : 'outlined'}
+                    onClick={() => handleFamilyTreeId(1)}
+                >
+                    User 1
+                </Button>
+                <Button
+                    variant={familyTreeId === 2 ? 'contained' : 'outlined'}
+                    onClick={() => handleFamilyTreeId(2)}
+                >
+                    User 2
+                </Button>
+            </div>
         <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                 <tr>
