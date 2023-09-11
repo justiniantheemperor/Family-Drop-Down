@@ -26,11 +26,11 @@ const formatDisplay = (person) => {
     let dateRange = '';
 
     if (person.birthDate && person.deathDate) {
-        dateRange = `(${formatDate(person.birthDate)} - ${formatDate(person.deathDate)})`;
+        dateRange = `(${person.birthDate.split('-')[0]} - ${person.deathDate.split('-')[0]})`;
     } else if (person.deathDate) {
-        dateRange = `(-${formatDate(person.deathDate)})`;
+        dateRange = `(-${person.deathDate.split('-')[0]})`;
     } else if (person.birthDate) {
-        dateRange = `(${formatDate(person.birthDate)} - Living)`;
+        dateRange = `(${person.birthDate.split('-')[0]} - Living)`;
     } else {
         dateRange = '(Living)';
     }
