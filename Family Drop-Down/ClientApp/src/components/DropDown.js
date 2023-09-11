@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
+import '../custom.css'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import {Button, Card, Container, CardContent } from '@mui/material';
 
 // Map Gender numerical values to their corresponding strings
 const genderMap = {
@@ -73,6 +74,7 @@ const DropDown = () => {
                 >
                     User 1
                 </Button>
+                &emsp;
                 <Button
                     variant={familyTreeId === 2 ? 'contained' : 'outlined'}
                     onClick={() => handleFamilyTreeIdChange(2)}
@@ -80,6 +82,7 @@ const DropDown = () => {
                     User 2
                 </Button>
             </div>
+            <Container>
             <Autocomplete
                 id="person-select"
                 options={people}
@@ -90,15 +93,19 @@ const DropDown = () => {
                 }}
             />
             {selectedPerson && ( // Render selected person's information if available
-                <div>
+                <Card variant="outlined">
+                    <CardContent>
                     <h2>{selectedPerson.givenName} {selectedPerson.surname}</h2>
-                    <p>Gender: {genderMap[selectedPerson.gender] || 'Unknown'} </p>
-                    <p>Birth Date: {formatDate(selectedPerson.birthDate)}</p>
-                    <p>Birth Location: {selectedPerson.birthLocation || 'Unknown'}</p>
-                    <p>Death Date: {formatDate(selectedPerson.deathDate)}</p>
-                    <p>Death Location: {selectedPerson.deathLocation || 'Unknown'}</p>
-                </div>
-            )}
+                        <p>Gender: {genderMap[selectedPerson.gender] || 'Unknown'} </p>
+                        <p>Birth Date: {formatDate(selectedPerson.birthDate)}</p>
+                        <p>Birth Location: {selectedPerson.birthLocation || 'Unknown'}</p>
+                        <p>Death Date: {formatDate(selectedPerson.deathDate)}</p>
+                        <p>Death Location: {selectedPerson.deathLocation || 'Unknown'}</p>
+                    </CardContent>
+                </Card>
+                )}
+            </Container>
+
         </main>
     );
 };

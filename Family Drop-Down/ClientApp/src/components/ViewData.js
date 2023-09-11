@@ -1,11 +1,14 @@
 ﻿import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import '../custom.css'
+import {
+    Button,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TableSortLabel,
+} from '@mui/material';
 
 // Map Gender numerical values to their corresponding strings
 const genderMap = {
@@ -62,7 +65,7 @@ const ViewData = () => {
                 onClick={() => setFamilyTreeId(1)}
             >
                 User 1
-            </Button>
+            </Button>&emsp;
             <Button
                 variant={familyTreeId === 2 ? 'contained' : 'outlined'}
                 onClick={() => setFamilyTreeId(2)}

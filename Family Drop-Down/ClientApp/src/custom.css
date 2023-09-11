@@ -12,3 +12,8 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+/* Target the Autocomplete component */
+.MuiAutocomplete-root {
+    padding: 20px 0px 50px 0px;
+}
