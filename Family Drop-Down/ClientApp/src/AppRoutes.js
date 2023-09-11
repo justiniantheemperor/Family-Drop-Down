@@ -1,5 +1,4 @@
 import DropDown from "./components/DropDown";
-import { FetchData } from "./components/FetchData";
 import ViewData from "./components/ViewData";
 import { Home } from "./components/Home";
 
@@ -15,10 +14,6 @@ const AppRoutes = [
     {
         path: '/view-data',
         element: <ViewData />
-    },
-  {
-    path: '/fetch-data',
-    element: <FetchData />
     }
 ];
 
